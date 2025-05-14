@@ -1,5 +1,7 @@
 package com.sky.exception;
 
+import java.io.InputStream;
+
 /**
  * 业务异常
  */
@@ -13,3 +15,4 @@ public class BaseException extends RuntimeException {
     }
 
 }
+
