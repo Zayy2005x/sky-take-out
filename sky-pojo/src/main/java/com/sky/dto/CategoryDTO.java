@@ -15,7 +15,7 @@ public class CategoryDTO implements Serializable {
 
     //分类名称
     private String name;
-
+    
     //排序
     private Integer sort;
 

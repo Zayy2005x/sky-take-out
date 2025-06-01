@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -77,4 +78,48 @@ public class CategoryServiceImpl implements CategoryService {
             throw new DeletionNotAllowedException(MessageConstant.CATEGORY_BE_RELATED_BY_SETMEAL);
         categoryMapper.delete(id);
     }
+
+    /**
+     * 修改分类
+     * @param categoryDTO
+     */
+    @Override
+    public void update(CategoryDTO categoryDTO) {
+        Category category = new Category();
+        BeanUtils.copyProperties(categoryDTO, category);
+
+        //设置修改时间和修改人Id
+        category.setUpdateUser(BaseContext.getCurrentId());
+        category.setUpdateTime(LocalDateTime.now());
+
+        categoryMapper.update(category);
+    }
+
+    /**
+     * 启用、禁用分类
+     * @param status
+     * @param id
+     */
+    @Override
+    public void startOrStop(Integer status, Long id) {
+        Category category = Category.builder()
+                .id(id)
+                .status(status)
+                .updateTime(LocalDateTime.now())
+                .updateUser(BaseContext.getCurrentId())
+                .build();
+        categoryMapper.update(category);
+    }
+
+    /**
+     * 根据类型查询分类
+     * @param type
+     * @return
+     */
+    @Override
+    public List<Category> list(Integer type) {
+        return categoryMapper.list(type);
+    }
+
+
 }

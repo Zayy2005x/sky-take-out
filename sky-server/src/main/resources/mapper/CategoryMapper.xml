@@ -14,10 +14,10 @@
             <if test="status != null">
                 status = #{status},
             </if>
-            <if test="update_time != null">
+            <if test="updateTime != null">
                 update_time = #{updateTime},
             </if>
-            <if test="update_user != null">
+            <if test="updateUser != null">
                 update_user = #{updateUser}
             </if>
         </set>
@@ -36,5 +36,14 @@
             </if>
         </where>
             ORDER BY sort asc, create_time desc
+    </select>
+    <select id="list" resultType="com.sky.entity.Category">
+        SELECT *
+        FROM sky_take_out.category
+        WHERE status = 1
+        <if test="type != null">
+        and type = #{type}
+        </if>
+        ORDER BY sort ASC , create_time DESC
     </select>
 </mapper>
