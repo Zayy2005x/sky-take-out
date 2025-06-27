@@ -12,4 +12,36 @@
             <if test="userId != null">and user_id=#{userId}</if>
         </where>
     </select>
+
+
+    <delete id="deleteByShoppingCart">
+        DELETE FROM sky_take_out.shopping_cart
+        <where>
+            <if test="dishFlavor!=null">and dish_flavor=#{dishFlavor}</if>
+            <if test="dishId != null">and dish_id =#{dishId}</if>
+            <if test="setmealId != null">and setmeal_id =#{setmealId}</if>
+            <if test="userId != null">and user_id=#{userId}</if>
+        </where>
+    </delete>
+
+    <update id="updateNumberByShoppingCart">
+        UPDATE sky_take_out.shopping_cart
+        SET number=#{number}
+        <where>
+            <if test="dishId != null">and dish_id=#{dishId}</if>
+            <if test="setmealId != null">and setmeal_id=#{setmealId}</if>
+            <if test="dishFlavor != null">and dish_flavor=#{dishFlavor}</if>
+        </where>
+    </update>
+
+
+    <select id="getByShoppingCart" resultType="com.sky.entity.ShoppingCart">
+        SELECT * FROM sky_take_out.shopping_cart
+        <where>
+            <if test="userId != null">and user_id =#{userId}</if>
+            <if test="dishId != null">and dish_id =#{dishId}</if>
+            <if test="setmealId != null">and setmeal_id=#{setmealId}</if>
+            <if test="dishFlavor != null">and dish_flavor=#{dishFlavor}</if>
+        </where>
+    </select>
 </mapper>
