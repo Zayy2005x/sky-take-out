@@ -2,6 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sky.mapper.SetmealDishMapper">
+    <insert id="insertBatch">
+        INSERT INTO sky_take_out.setmeal_dish
+        (setmeal_id, dish_id, name, price, copies) VALUES
+        <foreach collection="setmealDishes" item="setmealDish" separator=",">
+            (#{setmealDish.setmealId},#{setmealDish.dishId},#{setmealDish.name},#{setmealDish.price},#{setmealDish.copies})
+        </foreach>
+    </insert>
 
     <select id="getSetmealIdsByDishIds" resultType="java.lang.Long">
         SELECT * FROM sky_take_out.setmeal_dish WHERE dish_id IN
@@ -9,4 +16,16 @@
             #{dishId}
         </foreach>
     </select>
+
+    <update id="update">
+        UPDATE sky_take_out.setmeal_dish
+        <set>
+            <if test="setmealId != null">setmeal_id=#{setmealId},</if>
+            <if test="dishId != null">dish_id=#{dishId},</if>
+            <if test="name != null">name=#{name},</if>
+            <if test="price != null">price=#{price},</if>
+            <if test="copies != null">copies=#{copies}</if>
+        </set>
+    </update>
+
 </mapper>

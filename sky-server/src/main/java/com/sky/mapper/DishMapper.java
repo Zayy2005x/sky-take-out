@@ -59,4 +59,21 @@ public interface DishMapper {
      * @param dish
      */
     void update(Dish dish);
+
+    /**
+     * 根据分类id查询菜品信息
+     * @param categoryId
+     * @return
+     */
+    @Select("SELECT * FROM sky_take_out.dish WHERE category_id=#{categoryId}")
+    List<Dish> getByCategoryId(Long categoryId);
+
+
+    /**
+     * 根据菜品信息查询菜品
+     * @param dish
+     * @return
+     */
+    @Select("SELECT * FROM sky_take_out.dish WHERE status=#{status} and category_id=#{categoryId}")
+    List<Dish> list(Dish dish);
 }
